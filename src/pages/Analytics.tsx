@@ -1,6 +1,7 @@
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { TrendingUp, TrendingDown, Eye, ShoppingCart, MousePointerClick, DollarSign } from "lucide-react";
 import DashboardSidebar from "@/components/DashboardSidebar";
+import MobileHeader from "@/components/MobileHeader";
 import StatCard from "@/components/StatCard";
 
 const revenueByMonth = [
@@ -56,6 +57,7 @@ const Analytics = () => {
     <div className="min-h-screen bg-background dark">
       <DashboardSidebar />
       <main className="md:ml-60">
+        <MobileHeader />
         <header className="border-b border-border px-6 py-4">
           <div>
             <h1 className="text-xl font-semibold text-foreground">Analytics</h1>

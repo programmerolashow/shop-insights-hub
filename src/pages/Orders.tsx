@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import DashboardSidebar from "@/components/DashboardSidebar";
+import MobileHeader from "@/components/MobileHeader";
 
 const allOrders = [
   { id: "#ORD-7291", customer: "Sarah Chen", email: "sarah@email.com", product: "Wireless Headphones", amount: "$249.99", status: "Delivered", date: "Feb 20, 2026", items: 2 },
@@ -47,6 +48,7 @@ const Orders = () => {
     <div className="min-h-screen bg-background dark">
       <DashboardSidebar />
       <main className="md:ml-60">
+        <MobileHeader />
         <header className="border-b border-border px-6 py-4">
           <div className="flex items-center justify-between">
             <div>

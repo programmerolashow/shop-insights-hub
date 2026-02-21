@@ -1,25 +1,39 @@
 import { useState } from "react";
-import { Search, Plus, Package, Star, MoreHorizontal, Eye, Edit, Trash2 } from "lucide-react";
+import { Search, Plus, Package, Star, Eye, Edit, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import DashboardSidebar from "@/components/DashboardSidebar";
+import MobileHeader from "@/components/MobileHeader";
+
+import imgHeadphones from "@/assets/products/headphones.jpg";
+import imgSmartwatch from "@/assets/products/smartwatch.jpg";
+import imgLaptopStand from "@/assets/products/laptop-stand.jpg";
+import imgKeyboard from "@/assets/products/keyboard.jpg";
+import imgUsbHub from "@/assets/products/usb-hub.jpg";
+import imgEarbuds from "@/assets/products/earbuds.jpg";
+import imgWebcam from "@/assets/products/webcam.jpg";
+import imgSsd from "@/assets/products/ssd.jpg";
+import imgMonitorArm from "@/assets/products/monitor-arm.jpg";
+import imgSpeaker from "@/assets/products/speaker.jpg";
+import imgDeskmat from "@/assets/products/deskmat.jpg";
+import imgCharger from "@/assets/products/charger.jpg";
 
 const categories = ["All", "Electronics", "Accessories", "Audio", "Peripherals", "Storage"];
 
 const products = [
-  { id: 1, name: "Wireless Headphones", category: "Audio", price: "$249.99", stock: 142, sold: 1243, rating: 4.8, status: "Active", image: "🎧" },
-  { id: 2, name: "Smart Watch Pro", category: "Electronics", price: "$399.00", stock: 58, sold: 987, rating: 4.6, status: "Active", image: "⌚" },
-  { id: 3, name: "Laptop Stand", category: "Accessories", price: "$79.50", stock: 230, sold: 856, rating: 4.9, status: "Active", image: "🖥️" },
-  { id: 4, name: "Mechanical Keyboard", category: "Peripherals", price: "$189.00", stock: 87, sold: 743, rating: 4.7, status: "Active", image: "⌨️" },
-  { id: 5, name: "USB-C Hub", category: "Accessories", price: "$59.99", stock: 312, sold: 612, rating: 4.5, status: "Active", image: "🔌" },
-  { id: 6, name: "Noise Cancelling Buds", category: "Audio", price: "$179.99", stock: 0, sold: 534, rating: 4.4, status: "Out of Stock", image: "🎵" },
-  { id: 7, name: "Webcam HD", category: "Electronics", price: "$89.99", stock: 165, sold: 421, rating: 4.3, status: "Active", image: "📷" },
-  { id: 8, name: "Portable SSD 1TB", category: "Storage", price: "$119.00", stock: 94, sold: 389, rating: 4.7, status: "Active", image: "💾" },
-  { id: 9, name: "Monitor Arm", category: "Accessories", price: "$134.50", stock: 12, sold: 298, rating: 4.6, status: "Low Stock", image: "🦾" },
-  { id: 10, name: "Bluetooth Speaker", category: "Audio", price: "$129.00", stock: 201, sold: 267, rating: 4.2, status: "Active", image: "🔊" },
-  { id: 11, name: "Desk Mat XL", category: "Accessories", price: "$45.00", stock: 0, sold: 198, rating: 4.1, status: "Out of Stock", image: "🖱️" },
-  { id: 12, name: "Portable Charger", category: "Electronics", price: "$39.99", stock: 445, sold: 156, rating: 4.0, status: "Active", image: "🔋" },
+  { id: 1, name: "Wireless Headphones", category: "Audio", price: "$249.99", stock: 142, sold: 1243, rating: 4.8, status: "Active", image: imgHeadphones },
+  { id: 2, name: "Smart Watch Pro", category: "Electronics", price: "$399.00", stock: 58, sold: 987, rating: 4.6, status: "Active", image: imgSmartwatch },
+  { id: 3, name: "Laptop Stand", category: "Accessories", price: "$79.50", stock: 230, sold: 856, rating: 4.9, status: "Active", image: imgLaptopStand },
+  { id: 4, name: "Mechanical Keyboard", category: "Peripherals", price: "$189.00", stock: 87, sold: 743, rating: 4.7, status: "Active", image: imgKeyboard },
+  { id: 5, name: "USB-C Hub", category: "Accessories", price: "$59.99", stock: 312, sold: 612, rating: 4.5, status: "Active", image: imgUsbHub },
+  { id: 6, name: "Noise Cancelling Buds", category: "Audio", price: "$179.99", stock: 0, sold: 534, rating: 4.4, status: "Out of Stock", image: imgEarbuds },
+  { id: 7, name: "Webcam HD", category: "Electronics", price: "$89.99", stock: 165, sold: 421, rating: 4.3, status: "Active", image: imgWebcam },
+  { id: 8, name: "Portable SSD 1TB", category: "Storage", price: "$119.00", stock: 94, sold: 389, rating: 4.7, status: "Active", image: imgSsd },
+  { id: 9, name: "Monitor Arm", category: "Accessories", price: "$134.50", stock: 12, sold: 298, rating: 4.6, status: "Low Stock", image: imgMonitorArm },
+  { id: 10, name: "Bluetooth Speaker", category: "Audio", price: "$129.00", stock: 201, sold: 267, rating: 4.2, status: "Active", image: imgSpeaker },
+  { id: 11, name: "Desk Mat XL", category: "Accessories", price: "$45.00", stock: 0, sold: 198, rating: 4.1, status: "Out of Stock", image: imgDeskmat },
+  { id: 12, name: "Portable Charger", category: "Electronics", price: "$39.99", stock: 445, sold: 156, rating: 4.0, status: "Active", image: imgCharger },
 ];
 
 const statusStyles: Record<string, string> = {
@@ -42,6 +56,7 @@ const Products = () => {
     <div className="min-h-screen bg-background dark">
       <DashboardSidebar />
       <main className="md:ml-60">
+        <MobileHeader />
         <header className="border-b border-border px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
@@ -63,9 +78,7 @@ const Products = () => {
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                    activeCategory === cat
-                      ? "bg-primary/15 text-primary"
-                      : "text-muted-foreground hover:bg-muted"
+                    activeCategory === cat ? "bg-primary/15 text-primary" : "text-muted-foreground hover:bg-muted"
                   }`}
                 >
                   {cat}
@@ -74,56 +87,44 @@ const Products = () => {
             </div>
             <div className="relative w-full sm:w-64">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-              <Input
-                placeholder="Search products..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="pl-9 h-9 text-sm bg-card border-border"
-              />
+              <Input placeholder="Search products..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9 h-9 text-sm bg-card border-border" />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {filtered.map((product) => (
-              <div
-                key={product.id}
-                className="bg-card rounded-xl border border-border p-4 hover:shadow-glow transition-all duration-300 group"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div className="h-12 w-12 rounded-lg bg-muted flex items-center justify-center text-2xl">
-                    {product.image}
-                  </div>
-                  <Badge variant="outline" className={`text-[10px] ${statusStyles[product.status]}`}>
-                    {product.status}
-                  </Badge>
-                </div>
-
-                <h3 className="text-sm font-semibold text-card-foreground mb-1 truncate">{product.name}</h3>
-                <p className="text-xs text-muted-foreground mb-3">{product.category}</p>
-
-                <div className="flex items-center justify-between mb-3">
-                  <span className="font-mono text-lg font-semibold text-card-foreground">{product.price}</span>
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Star className="h-3 w-3 text-warning fill-warning" />
-                    {product.rating}
+              <div key={product.id} className="bg-card rounded-xl border border-border overflow-hidden hover:shadow-glow transition-all duration-300 group">
+                <div className="relative h-40 bg-muted overflow-hidden">
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute top-2 right-2">
+                    <Badge variant="outline" className={`text-[10px] backdrop-blur-sm ${statusStyles[product.status]}`}>
+                      {product.status}
+                    </Badge>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-muted-foreground border-t border-border pt-3">
-                  <span>{product.stock} in stock</span>
-                  <span>{product.sold} sold</span>
-                </div>
+                <div className="p-4">
+                  <h3 className="text-sm font-semibold text-card-foreground mb-1 truncate">{product.name}</h3>
+                  <p className="text-xs text-muted-foreground mb-3">{product.category}</p>
 
-                <div className="flex items-center gap-1 mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Button variant="ghost" size="icon" className="h-7 w-7">
-                    <Eye className="h-3.5 w-3.5" />
-                  </Button>
-                  <Button variant="ghost" size="icon" className="h-7 w-7">
-                    <Edit className="h-3.5 w-3.5" />
-                  </Button>
-                  <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive">
-                    <Trash2 className="h-3.5 w-3.5" />
-                  </Button>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="font-mono text-lg font-semibold text-card-foreground">{product.price}</span>
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <Star className="h-3 w-3 text-warning fill-warning" />
+                      {product.rating}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs text-muted-foreground border-t border-border pt-3">
+                    <span>{product.stock} in stock</span>
+                    <span>{product.sold} sold</span>
+                  </div>
+
+                  <div className="flex items-center gap-1 mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Button variant="ghost" size="icon" className="h-7 w-7"><Eye className="h-3.5 w-3.5" /></Button>
+                    <Button variant="ghost" size="icon" className="h-7 w-7"><Edit className="h-3.5 w-3.5" /></Button>
+                    <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive"><Trash2 className="h-3.5 w-3.5" /></Button>
+                  </div>
                 </div>
               </div>
             ))}

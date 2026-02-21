@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import DashboardSidebar from "@/components/DashboardSidebar";
+import MobileHeader from "@/components/MobileHeader";
 
 const transactions = [
   { id: "TXN-9281", type: "Sale", customer: "Sarah Chen", method: "Visa •••• 4242", amount: "+$249.99", date: "Feb 20, 2026 14:32", status: "Completed" },
@@ -50,6 +51,7 @@ const Transactions = () => {
     <div className="min-h-screen bg-background dark">
       <DashboardSidebar />
       <main className="md:ml-60">
+        <MobileHeader />
         <header className="border-b border-border px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
