@@ -23,7 +23,7 @@ const MobileHeader = () => {
           <div className="h-7 w-7 rounded-lg gradient-primary flex items-center justify-center">
             <TrendingUp className="h-3.5 w-3.5 text-primary-foreground" />
           </div>
-          <span className="font-semibold text-foreground">Storefront</span>
+          <span className="font-semibold text-foreground">buyIT</span>
         </div>
         <button onClick={() => setOpen(!open)} className="text-foreground p-1">
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -38,7 +38,7 @@ const MobileHeader = () => {
               <div className="h-7 w-7 rounded-lg gradient-primary flex items-center justify-center">
                 <TrendingUp className="h-3.5 w-3.5 text-primary-foreground" />
               </div>
-              <span className="text-sidebar-accent-foreground font-semibold">Storefront</span>
+              <span className="text-sidebar-accent-foreground font-semibold">buyIT</span>
             </div>
             {navItems.map((item) => (
               <NavLink

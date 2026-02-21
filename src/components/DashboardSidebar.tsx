@@ -21,7 +21,7 @@ const DashboardSidebar = () => {
         <div className="h-8 w-8 rounded-lg gradient-primary flex items-center justify-center">
           <TrendingUp className="h-4 w-4 text-primary-foreground" />
         </div>
-        <span className="text-sidebar-accent-foreground font-semibold text-lg tracking-tight">Storefront</span>
+        <span className="text-sidebar-accent-foreground font-semibold text-lg tracking-tight">buyIT</span>
       </div>
 
       <nav className="flex-1 px-3 py-4 space-y-1">
