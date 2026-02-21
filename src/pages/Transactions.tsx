@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Search, Download, ArrowUpRight, ArrowDownLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import { exportToCsv } from "@/lib/exportCsv";
+import { toast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -58,7 +60,11 @@ const Transactions = () => {
               <h1 className="text-xl font-semibold text-foreground">Transactions</h1>
               <p className="text-sm text-muted-foreground">Payment history and financial records</p>
             </div>
-            <Button variant="outline" size="sm" className="gap-1.5 text-xs">
+            <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={() => {
+              exportToCsv("transactions.csv", ["ID", "Type", "Customer", "Method", "Amount", "Date", "Status"],
+                filtered.map((t) => [t.id, t.type, t.customer, t.method, t.amount, t.date, t.status]));
+              toast({ title: "Export complete", description: `${filtered.length} transactions exported to CSV.` });
+            }}>
               <Download className="h-3.5 w-3.5" />
               Export CSV
             </Button>

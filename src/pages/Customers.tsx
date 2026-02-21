@@ -3,10 +3,14 @@ import { Search, Download, Mail, UserPlus, ChevronLeft, ChevronRight } from "luc
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import MobileHeader from "@/components/MobileHeader";
+import { toast } from "@/hooks/use-toast";
+import { exportToCsv } from "@/lib/exportCsv";
 
-const customers = [
+const defaultCustomers = [
   { id: 1, name: "Sarah Chen", email: "sarah@email.com", orders: 24, spent: "$4,892", joined: "Jan 12, 2025", status: "Active", avatar: "SC" },
   { id: 2, name: "Marcus Johnson", email: "marcus@email.com", orders: 18, spent: "$3,241", joined: "Mar 5, 2025", status: "Active", avatar: "MJ" },
   { id: 3, name: "Emily Davis", email: "emily@email.com", orders: 31, spent: "$6,120", joined: "Nov 22, 2024", status: "VIP", avatar: "ED" },
@@ -31,12 +35,43 @@ const filters = ["All", "Active", "VIP", "New", "Inactive"];
 const Customers = () => {
   const [search, setSearch] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
+  const [customers, setCustomers] = useState(defaultCustomers);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [newCustomer, setNewCustomer] = useState({ name: "", email: "" });
 
   const filtered = customers.filter((c) => {
     const matchesSearch = c.name.toLowerCase().includes(search.toLowerCase()) || c.email.toLowerCase().includes(search.toLowerCase());
     const matchesFilter = activeFilter === "All" || c.status === activeFilter;
     return matchesSearch && matchesFilter;
   });
+
+  const handleAddCustomer = () => {
+    if (!newCustomer.name || !newCustomer.email) {
+      toast({ title: "Missing fields", description: "Please fill in name and email.", variant: "destructive" });
+      return;
+    }
+    const initials = newCustomer.name.split(" ").map((w) => w[0]).join("").toUpperCase().slice(0, 2);
+    const customer = {
+      id: customers.length + 1,
+      name: newCustomer.name,
+      email: newCustomer.email,
+      orders: 0,
+      spent: "$0",
+      joined: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+      status: "New",
+      avatar: initials,
+    };
+    setCustomers([customer, ...customers]);
+    setNewCustomer({ name: "", email: "" });
+    setDialogOpen(false);
+    toast({ title: "Customer added", description: `${customer.name} has been added.` });
+  };
+
+  const handleExport = () => {
+    exportToCsv("customers.csv", ["Name", "Email", "Orders", "Total Spent", "Joined", "Status"],
+      filtered.map((c) => [c.name, c.email, String(c.orders), c.spent, c.joined, c.status]));
+    toast({ title: "Export complete", description: `${filtered.length} customers exported to CSV.` });
+  };
 
   return (
     <div className="min-h-screen bg-background dark">
@@ -50,11 +85,11 @@ const Customers = () => {
               <p className="text-sm text-muted-foreground">{customers.length} total customers</p>
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" className="gap-1.5 text-xs">
+              <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={handleExport}>
                 <Download className="h-3.5 w-3.5" />
                 Export
               </Button>
-              <Button size="sm" className="gradient-primary border-0 text-primary-foreground gap-1.5">
+              <Button size="sm" className="gradient-primary border-0 text-primary-foreground gap-1.5" onClick={() => setDialogOpen(true)}>
                 <UserPlus className="h-3.5 w-3.5" />
                 Add Customer
               </Button>
@@ -139,6 +174,28 @@ const Customers = () => {
           </div>
         </div>
       </main>
+
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Add New Customer</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div className="space-y-2">
+              <Label htmlFor="customer-name">Full Name</Label>
+              <Input id="customer-name" placeholder="e.g. John Doe" value={newCustomer.name} onChange={(e) => setNewCustomer({ ...newCustomer, name: e.target.value })} />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="customer-email">Email</Label>
+              <Input id="customer-email" type="email" placeholder="john@email.com" value={newCustomer.email} onChange={(e) => setNewCustomer({ ...newCustomer, email: e.target.value })} />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
+            <Button className="gradient-primary border-0 text-primary-foreground" onClick={handleAddCustomer}>Add Customer</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
