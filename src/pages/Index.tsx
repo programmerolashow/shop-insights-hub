@@ -1,5 +1,6 @@
 import { DollarSign, ShoppingCart, Users, TrendingUp } from "lucide-react";
 import DashboardSidebar from "@/components/DashboardSidebar";
+import MobileHeader from "@/components/MobileHeader";
 import StatCard from "@/components/StatCard";
 import RevenueChart from "@/components/RevenueChart";
 import RecentOrders from "@/components/RecentOrders";
@@ -17,6 +18,7 @@ const Index = () => {
     <div className="min-h-screen bg-background dark">
       <DashboardSidebar />
       <main className="md:ml-60">
+        <MobileHeader />
         <header className="border-b border-border px-6 py-4 flex items-center justify-between">
           <div>
             <h1 className="text-xl font-semibold text-foreground">Dashboard</h1>
